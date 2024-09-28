@@ -1,10 +1,10 @@
 from constants.globalVariables import history
 
-def add_to_history(num1, operator, num2, result):
-    if num2 is None: 
-        history.append(f"{operator}({num1}) = {result}")
+def add_to_history(operand1, operator, operand2, result):
+    if operand2 is None: 
+        history.append(f"{operator}({operand1}) = {result}")
     else:
-        history.append(f"{num1} {operator} {num2} = {result}")
+        history.append(f"{operand1} {operator} {operand2} = {result}")
 
 def show_history():
     if history:

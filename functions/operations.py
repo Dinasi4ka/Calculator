@@ -1,27 +1,27 @@
 import math
 
-def addition(num1, num2):
-    return num1 + num2
+def addition(operand1, operand2):
+    return operand1 + operand2
 
-def subtraction(num1, num2):
-    return num1 - num2
+def subtraction(operand1, operand2):
+    return operand1 - operand2
 
-def  multiplication(num1, num2):
-    return num1 * num2
+def  multiplication(operand1, operand2):
+    return operand1 * operand2
 
-def  division(num1, num2):
-    if num2 == 0:
+def  division(operand1, operand2):
+    if operand2 == 0:
         return "Ділення на нуль неможливе!"
-    return num1 / num2
+    return operand1 / operand2
 
-def  power(num1, num2):
-    return pow(num1,num2)
+def  power(operand1, operand2):
+    return pow(operand1,operand2)
 
-def  square_root(num1):
-    if num1 >= 0:
-        return math.sqrt(num1)
+def  square_root(operand1):
+    if operand1 >= 0:
+        return math.sqrt(operand1)
     else:
         return "Неможливо обчислити квадратний корінь із від'ємного числа"
 
-def  find_remainder(num1, num2):
-    return num1 % num2
+def  find_remainder(operand1, operand2):
+    return operand1 % operand2

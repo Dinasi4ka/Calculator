@@ -19,13 +19,13 @@ def main():
             use_memory = input("Введіть перше число (або M для значення з пам'яті): ").upper()
             if use_memory == 'M':
                 if has_memory():
-                    num1 = get_result()
-                    print(f"Число з пам'яті: {num1}")
+                    operand1 = get_result()
+                    print(f"Число з пам'яті: {operand1}")
                 else:
                     print("Немає збереженого значення в пам'яті.")
                     continue
             else:
-                num1 = validate_number_input(use_memory)
+                operand1 = validate_number_input(use_memory)
 
             operator = input("Введіть оператор (+, -, *, /, ^, %, sq): ").strip()
             while not validate_operator(operator):
@@ -34,33 +34,33 @@ def main():
 
             result = 0
             if operator == "sq":
-                result = square_root(num1)
+                result = square_root(operand1)
             else:
-                num2 = validate_number_input(input("Введіть друге число: "))
+                operand2 = validate_number_input(input("Введіть друге число: "))
                 if operator == '+':
-                    result = addition(num1, num2)
+                    result = addition(operand1, operand2)
                 elif operator == '-':
-                    result = subtraction(num1, num2)
+                    result = subtraction(operand1, operand2)
                 elif operator == '*':
-                    result = multiplication(num1, num2)
+                    result = multiplication(operand1, operand2)
                 elif operator == '/':
                     while True:
-                        result = division(num1, num2)
+                        result = division(operand1, operand2)
                         if result == "Ділення на нуль неможливе!":
                             print(result)
-                            num2 = validate_number_input(input("Введіть інше число для ділення: "))
+                            operand2 = validate_number_input(input("Введіть інше число для ділення: "))
                         else:
                             break
                 elif operator == '^':
-                    result = power(num1, num2)
+                    result = power(operand1, operand2)
                 elif operator == '%':
-                    result = find_remainder(num1, num2)
+                    result = find_remainder(operand1, operand2)
 
             if result is not None:
                 result = round(result, decimal_places)
                 print(f"Результат: {result}")
                 save_result(result)
-                add_to_history(num1, operator, num2, result)
+                add_to_history(operand1, operator, operand2, result)
 
         
             repeat = input("Хочете повторити обчислення? (y/n): ").lower()
