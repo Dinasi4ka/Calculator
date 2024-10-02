@@ -1,7 +1,9 @@
-from constants.globalVariables import memory_value
+from constants.globalVariables import memory_value, decimal_places
 
-def save_result(result): 
+def save_result(result, decimal_places): 
     global memory_value
+    if isinstance(result, float):
+        result = round(result, decimal_places)
     memory_value = result
     print(f"Збережено {result} в пам'ять")
 
