@@ -1,4 +1,4 @@
-from constants.globalVariables import history
+from constants.globalVariables import history, decimal_places
 
 def add_to_history(operand1, operator, operand2, result):
     if operand2 is None: 
