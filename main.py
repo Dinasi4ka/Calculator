@@ -2,6 +2,7 @@ from bll.classes.Calculator import Calculator
 from bll.classes.AdvancedCalculator import AdvancedCalculator
 from ui.art_interface import get_user_input, preview_ascii_art, choose_color, choose_font
 from dal.filer import save_to_file
+from bll.validation import get_integer_input
 
 
 def main():
@@ -21,8 +22,8 @@ def main():
             chosen_color = choose_color()
 
             chosen_symbol = input("Введіть символ для ASCII-арту (за замовчуванням '#'): ") or "#"
-            width_factor = int(input("Введіть масштаб по ширині (ціле число, 1 для нормального розміру): ") or 1)
-            height_factor = int(input("Введіть масштаб по висоті (ціле число, 1 для нормального розміру): ") or 1)
+            width_factor = get_integer_input("Введіть масштаб по ширині (ціле число, 1 для нормального розміру): ")
+            height_factor = get_integer_input("Введіть масштаб по висоті (ціле число, 1 для нормального розміру): ") 
 
             ascii_art = preview_ascii_art(user_input, chosen_font, chosen_color, chosen_symbol, width_factor, height_factor)
 
