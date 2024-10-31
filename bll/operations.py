@@ -9,9 +9,9 @@ def subtraction(operand1, operand2):
 def  multiplication(operand1, operand2):
     return operand1 * operand2
 
-def  division(operand1, operand2):
+def division(operand1, operand2):
     if operand2 == 0:
-        return "Ділення на нуль неможливе!"
+        raise ZeroDivisionError("Ділення на нуль неможливе!")
     return operand1 / operand2
 
 def  power(operand1, operand2):
