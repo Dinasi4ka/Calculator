@@ -1,4 +1,4 @@
-from bll.classes.base_acii_art_generator import BaseAsciiArt
+from bll.classes.art.base_acii_art_generator import BaseAsciiArt
 import pyfiglet
 from termcolor import colored
 

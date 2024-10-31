@@ -1,7 +1,8 @@
-from bll.classes.Calculator import Calculator
-from bll.classes.AdvancedCalculator import AdvancedCalculator
-from bll.classes.acii_art import AsciiArt
-from bll.classes.my_acii_art import MyAciiArt
+from bll.classes.calculator.Calculator import Calculator
+from bll.classes.calculator.AdvancedCalculator import AdvancedCalculator
+from bll.classes.art.acii_art import AsciiArt
+from bll.classes.art.my_acii_art import MyAciiArt
+from bll.classes.art.threeD_art_generato import ThreeDArtGenerator
 
 def run_base_acii_art_generator():
     base_art = AsciiArt()
@@ -10,6 +11,10 @@ def run_base_acii_art_generator():
 def run_my_acii_art_generator():
     my_art = MyAciiArt()
     my_art.run()
+
+def run_three_d_art_generator():
+    three_d_art = ThreeDArtGenerator()
+    three_d_art.run()
 
 def run_calculator():
     while True:

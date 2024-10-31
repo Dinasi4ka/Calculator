@@ -1,5 +1,5 @@
 from termcolor import colored
-from bll.classes.base_acii_art_generator import BaseAsciiArt
+from bll.classes.art.base_acii_art_generator import BaseAsciiArt
 from sources.ABC123dictionary import ABC123dictionary  
 
 class MyAciiArt(BaseAsciiArt):

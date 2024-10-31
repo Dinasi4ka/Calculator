@@ -1,4 +1,4 @@
-from bll.classes.BaseCalculator import BaseCalculator
+from bll.classes.calculator.BaseCalculator import BaseCalculator
 from bll.operations import addition, subtraction, division, multiplication, power, square_root
 from dal.memory import save_result, get_result, has_memory
 from dal.history import add_to_history, show_history

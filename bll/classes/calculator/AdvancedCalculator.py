@@ -1,5 +1,5 @@
 import math
-from bll.classes.BaseCalculator import BaseCalculator
+from bll.classes.calculator.BaseCalculator import BaseCalculator
 
 class AdvancedCalculator(BaseCalculator):
     def __init__(self):

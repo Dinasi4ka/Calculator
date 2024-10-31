@@ -1,5 +1,5 @@
 from termcolor import colored
-from bll.classes.base_acii_art_generator import BaseAsciiArt
+from bll.classes.art.base_acii_art_generator import BaseAsciiArt
 
 def get_user_input():
     return input("Введіть слово або фразу для ASCII-арту: ")
