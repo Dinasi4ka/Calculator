@@ -1,66 +1,58 @@
 import unittest
-from unittest.mock import patch
-import sys
+from unittest.mock import patch, MagicMock
 import os
+import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
-from bll.classes.api.utils import display_as_list, display_as_table, log_request
-from bll.classes.api.ApiHandler import APIHandler
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.append(project_root)
+
+from src.bll.classes.api.ApiHandler import APIHandler
+from src.bll.classes.api.user_repository import UserRepository
 
 class TestAPIHandler(unittest.TestCase):
-    
     def setUp(self):
-        """Створення екземпляра APIHandler перед кожним тестом"""
-        self.api = APIHandler()
-    
-    def test_get_data_valid_endpoint(self):
-        """Перевірка успішного отримання даних для коректного ендпоінту"""
-        data = self.api.get_data('users')
-        self.assertIsInstance(data, list)
-        self.assertGreater(len(data), 0, "Expected non-empty data list")
-    
-    def test_get_data_invalid_endpoint(self):
-        """Перевірка обробки помилки для неправильного ендпоінту"""
-        data = self.api.get_data('invalid_endpoint')
-        self.assertEqual(data, {}, "Expected an empty dictionary for an invalid endpoint")
+        self.api_handler = APIHandler()
 
-    @patch('bll.classes.api.utils.get_user_color_choice', return_value="blue")  # Мокаємо функцію вибору кольору
-    def test_display_as_table(self, mock_get_color):
-        """Перевірка виведення даних у вигляді таблиці без запиту кольору"""
-        data = [{'id': 1, 'name': 'Test User', 'email': 'test@example.com'}]
-        try:
-            display_as_table(data)  # Викликаємо функцію, яка тепер не потребує вибору кольору
-        except Exception as e:
-            self.fail(f"display_as_table raised an exception {e}")
+    @patch('requests.get')
+    def test_get_data_success(self, mock_get):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = [{"id": 1, "name": "Test User"}]
 
-    def test_display_as_list(self):
-        """Перевірка виведення даних у вигляді списку"""
-        data = [{'id': 1, 'name': 'Test User', 'email': 'test@example.com'}]
-        try:
-            display_as_list(data)
-        except Exception as e:
-            self.fail(f"display_as_list raised an exception {e}")
+        result = self.api_handler.get_data("users")
+        self.assertIsInstance(result, list)
+        self.assertEqual(result[0]["id"], 1)
+        self.assertEqual(result[0]["name"], "Test User")
 
-    def test_edge_case_empty_data(self):
-        """Перевірка обробки порожнього списку даних"""
-        data = []
-        result = display_as_table(data, header_color="blue")  # Вказуємо колір за замовчуванням
-        self.assertIsNone(result, "Expected None for empty data list")
+    @patch('requests.get')
+    def test_get_data_failure(self, mock_get):
+        mock_get.return_value.status_code = 404
+        mock_get.return_value.json.return_value = {"error": "Not Found"}
 
-    def test_log_request(self):
-        """Перевірка логування запиту"""
-        endpoint = 'users'
-        data = [{'id': 1, 'name': 'Test User'}]
-        result = "Data received successfully, displaying as table."
-        try:
-            log_request("GET", endpoint, data, "table", result)
-        except Exception as e:
-            self.fail(f"log_request raised an exception {e}")
-    
-    def test_invalid_display_format(self):
-        """Перевірка обробки неправильного формату виводу"""
-        with self.assertRaises(ValueError):
-            self.api.get_data("users", display_format="invalid_format")
-        
+        result = self.api_handler.get_data("unknown")
+        self.assertEqual(result, {"error": "Not Found"})
+
+
+class TestUserRepository(unittest.TestCase):
+    def setUp(self):
+        self.api_handler = MagicMock()
+        self.user_repo = UserRepository(self.api_handler)
+
+    def test_get_users(self):
+        self.api_handler.get_data.return_value = [{"id": 1, "name": "Test User"}]
+
+        users = self.user_repo.get_users()
+        self.api_handler.get_data.assert_called_once_with("users")
+        self.assertEqual(users[0]["id"], 1)
+        self.assertEqual(users[0]["name"], "Test User")
+
+    def test_get_posts(self):
+        self.api_handler.get_data.return_value = [{"id": 1, "title": "Test Post"}]
+
+        posts = self.user_repo.get_posts()
+        self.api_handler.get_data.assert_called_once_with("posts")
+        self.assertEqual(posts[0]["id"], 1)
+        self.assertEqual(posts[0]["title"], "Test Post")
+
+
 if __name__ == "__main__":
     unittest.main()

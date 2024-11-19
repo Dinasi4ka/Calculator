@@ -6,7 +6,7 @@ sys.path.append(lab2_root)
 
 
 from src.bll.classes.BaseCalculator import BaseCalculator
-from bll.operations import Addition, Subtraction, Division, Multiplication, Power, SquareRoot, FindRemainder
+from shered.operations import Addition, Subtraction, Division, Multiplication, Power, SquareRoot, FindRemainder
 from shered.dal.memory import save_result, get_result, has_memory
 from shered.dal.history import add_to_history, show_history
 

@@ -65,7 +65,7 @@ def main():
             if result is not None:
                 result = round(result, decimal_places)
                 print(f"Результат: {result}")
-                save_result(result)
+                save_result(result, decimal_places)
                 add_to_history(operand1, operator, operand2, result)
 
         

@@ -1,14 +1,14 @@
 import sys
 import os
 
-lab4_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+lab4_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "lab4", "src"))
 sys.path.append(lab4_root)
 
 from src.ui.menu import display_menu, get_user_choice
 from src.ui.menuBuilder import run_base_acii_art_generator, run_my_acii_art_generator
 
 def main():
-    print("\nЛаскаво просимо до генератора ASCII-арту та калькулятора!")
+    print("\nЛаскаво просимо до генератора ASCII-арту!")
     
     while True:
         display_menu()
