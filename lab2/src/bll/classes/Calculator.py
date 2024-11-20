@@ -1,3 +1,7 @@
+"""
+Модуль реалізує клас Calculator, який наслідує BaseCalculator і додає функціонал для виконання обчислень.
+"""
+
 import sys
 import os
 
@@ -7,11 +11,18 @@ sys.path.append(lab2_root)
 
 from src.bll.classes.BaseCalculator import BaseCalculator
 from shered.operations import Addition, Subtraction, Division, Multiplication, Power, SquareRoot, FindRemainder
-from shered.dal.memory import save_result, get_result, has_memory
-from shered.dal.history import add_to_history, show_history
+from shered.dal.history import add_to_history
+
 
 class Calculator(BaseCalculator):
+    """
+    Калькулятор, який виконує арифметичні операції, використовуючи стратегії обчислення.
+    """
+
     def __init__(self, operand1=None, operand2=None, operator=None):
+        """
+        Ініціалізація калькулятора з можливістю прийняти операнди та оператор.
+        """
         super().__init__()
         self.operand1 = operand1
         self.operand2 = operand2
@@ -19,25 +30,30 @@ class Calculator(BaseCalculator):
         self.result = None
 
     def get_operation(self, operator):
+        """ Отримання операції за оператором """
+
         if operator == '+':
             return Addition()
-        elif operator == '-':
+        if operator == '-':
             return Subtraction()
-        elif operator == '*':
+        if operator == '*':
             return Multiplication()
-        elif operator == '/':
+        if operator == '/':
             return Division()
-        elif operator == '^':
+        if operator == '^':
             return Power()
-        elif operator == 'sq':
+        if operator == 'sq':
             return SquareRoot()
-        elif operator == '%':
+        if operator == '%':
             return FindRemainder()
-        else:
-            raise ValueError("Невідома операція")
+        raise ValueError("Невідома операція")
 
     def calculate(self, operand1, operator, operand2=None):
-        if not isinstance(operand1, (int, float)) or (operand2 is not None and not isinstance(operand2, (int, float))):
+        """ Виконання обчислення """
+        
+        if not isinstance(operand1, (int, float)) or (
+            operand2 is not None and not isinstance(operand2, (int, float))
+        ):
             raise TypeError("Операнди повинні бути числами.")
 
         try:
@@ -54,6 +70,3 @@ class Calculator(BaseCalculator):
 
         add_to_history(operand1, operator, operand2, result)
         return result
-
-    def run(self):
-        super().run()

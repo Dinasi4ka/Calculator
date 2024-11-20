@@ -12,12 +12,22 @@ from shered.validation import validate_color_choice
 
 
 class ThreeDArtGenerator:
+    """
+    Клас для генерації 3D-артів з вибором фігури та кольору.
+    """
+
     def __init__(self):
-        self.art = None  
+        """
+        Ініціалізація класу. Встановлення початкових значень для параметрів арт-генератора.
+        """
+        self.art = None 
         self.color = 32  
-        self.direction = True  
+        self.direction = True 
 
     def choose_shape(self):
+        """
+        Вибір фігури для генерації 3D-арту.
+        """
         shape = input("Виберіть фігуру (1 - Куб, 2 - Пірамід): ")
         size = int(input("Введіть розмір: "))
         
@@ -30,8 +40,11 @@ class ThreeDArtGenerator:
             return self.choose_shape()
 
     def change_size(self):
+        """
+        Зміна розміру вибраної фігури.
+        """
         try:
-            size = int(input("Введи новий розмір (не менше 3): "))
+            size = int(input("Введіть новий розмір (не менше 3): "))
             if size < 3:
                 print("Розмір має бути не менше 3.")
                 return self.change_size()
@@ -40,13 +53,19 @@ class ThreeDArtGenerator:
             else:
                 print("Спочатку виберіть фігуру.")
         except ValueError:
-            print("Неправильний вибір, спробуй ще раз")
+            print("Неправильний вибір, спробуйте ще раз")
             self.change_size()
         
     def get_available_colors(self):
+        """
+        Отримання доступних кольорів для вибору.
+        """
         return ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
 
     def choose_color(self):
+        """
+        Вибір кольору для 3D-арту.
+        """
         colors = self.get_available_colors()
         print("Доступні кольори:", colors)
         chosen_color = input("Виберіть колір з наведених: ").strip().lower()
@@ -60,22 +79,31 @@ class ThreeDArtGenerator:
             'cyan': 36,
             'white': 37
         }
-        self.color = color_map[chosen_color]
+        self.color = color_map.get(chosen_color, 32)  
 
     def change_color(self):
+        """
+        Зміна кольору, введеного користувачем вручну.
+        """
         color = int(input("Введіть код кольору (30-37): "))
         if 30 <= color <= 37:
             self.color = color
         else:
             print("Неправильний код кольору. Спробуйте ще раз.")
             self.change_color()
-    
+
     def change_direction(self):
+        """
+        Зміна напрямку фігури.
+        """
         self.direction = not self.direction
-        print("Напрям успішно змінено")
+        print("Напрям успішно змінено.")
 
     def get_art(self) -> str:
-        color_text = '\033[%dm%s\033[0m'
+        """
+        Отримання 3D-арту у вигляді рядка з кольором.
+        """
+        color_text = '\033[%dm%s\033[0m' 
         art = self.art.get_three_d_art()  
         colored_art = ""
         for line in art.split('\n'):
@@ -83,12 +111,18 @@ class ThreeDArtGenerator:
         return colored_art
 
     def print_art(self):
+        """
+        Виведення 3D-арту на екран.
+        """
         if self.art:
             print(self.get_art())
         else:
             print("Спочатку виберіть фігуру.")
 
     def save_art_into_file(self):
+        """
+        Збереження 3D-арту у файл.
+        """
         if self.art:
             filename = input("Введіть ім'я файлу для збереження (без розширення): ") + ".txt"
             save_to_file(self.get_art(), filename)
@@ -96,12 +130,15 @@ class ThreeDArtGenerator:
             print("Спочатку виберіть фігуру.")
 
     def run(self):
-        self.choose_shape()
-        self.choose_color()
-        self.print_art()
+        """
+        Запуск основного процесу генерації 3D-арту з вибором фігури, кольору, напрямку та збереження.
+        """
+        self.choose_shape()  
+        self.choose_color() 
+        self.print_art()  
         save_choice = input("Бажаєте зберегти зображення у файл? (y/n): ").strip().lower()
         if save_choice == 'y':
-            self.save_art_into_file()
+            self.save_art_into_file()  
         else:
             print("Зображення не буде збережено.")
 

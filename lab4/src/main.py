@@ -8,16 +8,22 @@ from src.ui.menu import display_menu, get_user_choice
 from src.ui.menuBuilder import run_base_acii_art_generator, run_my_acii_art_generator
 
 def main():
+    """
+    Основна функція, що реалізує генератор ASCII-арту з вибором користувача.
+    Користувач може вибрати один з варіантів:
+    1 - Базовий генератор ASCII-арту
+    2 - Мій генератор ASCII-арту
+    3 - Вихід з програми
+    """
     print("\nЛаскаво просимо до генератора ASCII-арту!")
     
     while True:
-        display_menu()
-        choice = get_user_choice()
+        choice = get_user_choice()  
         
         if choice == '1':
             run_base_acii_art_generator()  
         elif choice == '2':
-            run_my_acii_art_generator() 
+            run_my_acii_art_generator()  
         elif choice == '3':
             print("До побачення!")
             break

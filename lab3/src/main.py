@@ -9,15 +9,19 @@ from shered.dal.filer import save_to_file
 from shered.validation import get_integer_input
 
 def main():
+    """
+    Основна функція, що реалізує генератор ASCII-арту.
+    Пропонує користувачеві вибір для створення ASCII-арту або виходу з програми.
+    """
     print("Ласкаво просимо до генератора ASCII-арту!")
-    
+
     while True:
         print("\nВиберіть опцію:")
         print("1 - Генератор ASCII-арту")
         print("2 - Вихід")
 
         choice = input("Ваш вибір: ")
-        
+
         if choice == '1':
             user_input = get_user_input()
             chosen_font = choose_font()
@@ -25,7 +29,7 @@ def main():
 
             chosen_symbol = input("Введіть символ для ASCII-арту (за замовчуванням '#'): ") or "#"
             width_factor = get_integer_input("Введіть масштаб по ширині (ціле число, 1 для нормального розміру): ")
-            height_factor = get_integer_input("Введіть масштаб по висоті (ціле число, 1 для нормального розміру): ") 
+            height_factor = get_integer_input("Введіть масштаб по висоті (ціле число, 1 для нормального розміру): ")
 
             ascii_art = preview_ascii_art(user_input, chosen_font, chosen_color, chosen_symbol, width_factor, height_factor)
 
@@ -36,7 +40,7 @@ def main():
         elif choice == '2':
             print("До побачення!")
             break
-        
+
         else:
             print("Невірний вибір. Спробуйте ще раз.")
 
